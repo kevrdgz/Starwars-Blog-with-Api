@@ -11,9 +11,11 @@ import { Context } from "../store/appContext";
 export const Home = () => {
 	const { store, actions } = useContext(Context);
 	const [cargo, setCargo] = useState(false);
+	const [cargo2, setCargo2] = useState(false);
 
 	setInterval(() => {
 		store.personajes.length > 0 ? setCargo(true) : "";
+		store.planets.length > 0 ? setCargo2(true) : "";
 	}, 2000);
 
 	return (
@@ -25,10 +27,11 @@ export const Home = () => {
 						return (
 							<div className="displaycards" key={index}>
 								<Card
-									name={store.personajes[index].name}
-									gender={store.personajes[index].gender}
-									haircolor={store.personajes[index].hair_color}
-									eyecolor={store.personajes[index].eye_color}
+									name={item.name}
+									gender={item.gender}
+									haircolor={item.hair_color}
+									eyecolor={item.eye_color}
+									pos={index}
 								/>
 							</div>
 						);
@@ -40,13 +43,24 @@ export const Home = () => {
 
 			<h1 className="m-5 text-danger">Planets</h1>
 
-			<div className="cardsconteiner m-auto">
-				<Cardplanet />
-				<Cardplanet />
-				<Cardplanet />
-				<Cardplanet />
-				<Cardplanet />
-			</div>
+			{cargo2 ? (
+				<div className="cardsconteiner m-auto">
+					{store.planets.map((item2, index2) => {
+						return (
+							<div className="displaycards" key={index2}>
+								<Cardplanet
+									name={item2.name}
+									population={item2.population}
+									terrain={item2.terrain}
+									pos2={index2}
+								/>
+							</div>
+						);
+					})}
+				</div>
+			) : (
+				""
+			)}
 		</div>
 	);
 };

@@ -1,29 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
-export const Cardplanet = () => {
-	const [Name, setName] = useState();
-	const [Population, setPopulation] = useState();
-	const [Terrain, setTerrain] = useState();
+import { Context } from "../store/appContext";
 
-	useEffect(() => {
-		var requestOptions = {
-			method: "GET",
-			redirect: "follow"
-		};
+export const Cardplanet = props => {
+	const { store, actions } = useContext(Context);
 
-		fetch("https://www.swapi.tech/api/planets/1", requestOptions)
-			.then(response => response.json())
-			.then(
-				result => (
-					setName(result.result.properties.name),
-					setPopulation(result.result.properties.population),
-					setTerrain(result.result.properties.terrain)
-				)
-			)
-			.catch(error => console.log("error", error));
-	}, []);
 	return (
 		<div className="card displaycards p-1 m-2" style={{ width: "18rem" }}>
 			<img
@@ -32,21 +16,28 @@ export const Cardplanet = () => {
 				alt="..."
 			/>
 			<div className="card-body">
-				<h5 className="card-title">{Name}</h5>
-				<p className="card-text">Population: {Population}</p>
-				<p className="card-text">Terrain: {Terrain}</p>
+				<h5 className="card-title">{props.name}</h5>
+				<p className="card-text">Population: {props.population} </p>
+				<p className="card-text">Terrain: {props.terrain} </p>
 
 				<div className="btn-group" role="group" aria-label="Basic mixed styles example">
-					<Link to="/planet">
+					<Link to={"/planet/" + props.pos2}>
 						<button type="button" className="btn btn-primary">
 							Learn more!
 						</button>
 					</Link>
-					<button type="button" className="btn btn-warning">
+					<button type="button" className="btn btn-warning" onClick={() => actions.favFunction(props.name)}>
 						♥
 					</button>
 				</div>
 			</div>
 		</div>
 	);
+};
+
+Cardplanet.propTypes = {
+	name: PropTypes.string,
+	population: PropTypes.string,
+	terrain: PropTypes.string,
+	pos2: PropTypes.number
 };

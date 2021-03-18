@@ -1,9 +1,13 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Link } from "react-router-dom";
+
+import { Link, useParams } from "react-router-dom";
 
 import { Context } from "../store/appContext";
 
 export const Characters = () => {
+	const { charactersid } = useParams();
+	const { store, actions } = useContext(Context);
+
 	return (
 		<div className="container-fluid text-center">
 			<div className="card m-auto " style={{ maxWidth: "1000px" }}>
@@ -18,7 +22,7 @@ export const Characters = () => {
 					</div>
 					<div className="col-md-8">
 						<div className="card-body">
-							<h5 className="card-title">Card title</h5>
+							<h5 className="card-title">{store.personajes[charactersid].name}</h5>
 							<p className="card-text">
 								This is a wider card with supporting text below as a natural lead-in to additional
 								content. This content is a little bit longer.
@@ -30,12 +34,30 @@ export const Characters = () => {
 			<div className="container p-4">
 				<hr className="bg-danger" />
 				<div className="row ">
-					<div className="col-sm text-danger">One of three columns</div>
-					<div className="col-sm text-danger">One of three columns</div>
-					<div className="col-sm text-danger">One of three columns</div>
-					<div className="col-sm text-danger">One of three columns</div>
-					<div className="col-sm text-danger">One of three columns</div>
-					<div className="col-sm text-danger">One of three columns</div>
+					<div className="col-sm text-danger">
+						<h5>Name</h5>
+						<p>{store.personajes[charactersid].name}</p>
+					</div>
+					<div className="col-sm text-danger">
+						<h5>Birth Year</h5>
+						<p>{store.personajes[charactersid].birth_year}</p>
+					</div>
+					<div className="col-sm text-danger">
+						<h5>Gender</h5>
+						<p>{store.personajes[charactersid].gender}</p>
+					</div>
+					<div className="col-sm text-danger">
+						<h5>Height</h5>
+						<p>{store.personajes[charactersid].height}</p>
+					</div>
+					<div className="col-sm text-danger">
+						<h5>Skin Color</h5>
+						<p>{store.personajes[charactersid].skin_color}</p>
+					</div>
+					<div className="col-sm text-danger">
+						<h5>Eye Color</h5>
+						<p>{store.personajes[charactersid].eye_color}</p>
+					</div>
 				</div>
 			</div>
 		</div>

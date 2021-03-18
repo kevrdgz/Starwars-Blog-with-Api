@@ -18,21 +18,15 @@ export const Card = props => {
 			<div className="card-body">
 				<h5 className="card-title">{props.name}</h5>
 				<p className="card-text">Gender: {props.gender} </p>
-				<p className="card-text">
-					Hair Color:
-					{props.haircolor}{" "}
-				</p>
-				<p className="card-text">
-					Eye-Color:
-					{props.eyecolor}{" "}
-				</p>
+				<p className="card-text">Hair Color: {props.haircolor}</p>
+				<p className="card-text">Eye-Color: {props.eyecolor}</p>
 				<div className="btn-group" role="group" aria-label="Basic mixed styles example">
-					<Link to="/characters">
+					<Link to={"/characters/" + props.pos}>
 						<button type="button" className="btn btn-primary">
 							Learn more!
 						</button>
 					</Link>
-					<button type="button" className="btn btn-warning">
+					<button type="button" className="btn btn-warning" onClick={() => actions.favFunction(props.name)}>
 						♥
 					</button>
 				</div>
@@ -45,5 +39,6 @@ Card.propTypes = {
 	name: PropTypes.string,
 	gender: PropTypes.string,
 	haircolor: PropTypes.string,
-	eyecolor: PropTypes.string
+	eyecolor: PropTypes.string,
+	pos: PropTypes.number
 };
