@@ -22,11 +22,14 @@ export const Cardplanet = props => {
 
 				<div className="btn-group" role="group" aria-label="Basic mixed styles example">
 					<Link to={"/planet/" + props.pos2}>
-						<button type="button" className="btn btn-primary">
+						<button type="button" className="btn btn-primary m-1">
 							Learn more!
 						</button>
 					</Link>
-					<button type="button" className="btn btn-warning" onClick={() => actions.favFunction(props.name)}>
+					<button
+						type="button"
+						className="btn btn-warning m-1"
+						onClick={() => actions.favFunction(props.name)}>
 						♥
 					</button>
 				</div>

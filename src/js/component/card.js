@@ -22,11 +22,14 @@ export const Card = props => {
 				<p className="card-text">Eye-Color: {props.eyecolor}</p>
 				<div className="btn-group" role="group" aria-label="Basic mixed styles example">
 					<Link to={"/characters/" + props.pos}>
-						<button type="button" className="btn btn-primary">
+						<button type="button" className="btn btn-primary m-1">
 							Learn more!
 						</button>
 					</Link>
-					<button type="button" className="btn btn-warning" onClick={() => actions.favFunction(props.name)}>
+					<button
+						type="button"
+						className="btn btn-warning m-1"
+						onClick={() => actions.favFunction(props.name)}>
 						♥
 					</button>
 				</div>
