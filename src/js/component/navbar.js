@@ -9,7 +9,7 @@ export const Navbar = () => {
 
 	return (
 		<nav className="navbar navbar-light bg-light mb-3">
-			<Link to="/">
+			<Link to="/home">
 				<span className="navbar-brand mb-0 h1">Star Wars</span>
 			</Link>
 			<ButtonGroup aria-label="Basic example">
@@ -18,8 +18,8 @@ export const Navbar = () => {
 						store.favlist.map((item, index) => {
 							return (
 								<Dropdown.Item key={index}>
-									{item}{" "}
-									<Button onClick={() => actions.favFunctionDelete(index)}>
+									{item.name}{" "}
+									<Button onClick={() => actions.favFunctionDelete(item.id)}>
 										<i className="fas fa-trash-alt" />
 									</Button>
 								</Dropdown.Item>

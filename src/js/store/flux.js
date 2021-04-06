@@ -7,54 +7,49 @@ const getState = ({ getStore, getActions, setStore }) => {
 		},
 		actions: {
 			fetchcharacter() {
-				fetch("https://www.swapi.tech/api/people/")
+				fetch("https://3000-purple-bird-85pge3g8.ws-us03.gitpod.io/people/")
 					.then(response => response.json())
-					.then(result => {
-						let list = [];
-						result.results.forEach(element => {
-							fetch(element.url)
-								.then(response => response.json())
-								.then(result2 => list.push(result2.result.properties))
-								.catch(error => console.log("error", error));
-						});
-
-						setStore({ personajes: list });
-					})
+					.then(result => setStore({ personajes: result }))
 					.catch(error => console.log("error", error));
 			},
 			fetchplanets() {
-				fetch("https://www.swapi.tech/api/planets/")
+				fetch("https://3000-purple-bird-85pge3g8.ws-us03.gitpod.io/planets/")
 					.then(response => response.json())
-					.then(result => {
-						let list2 = [];
-						result.results.forEach(element => {
-							fetch(element.url)
-								.then(response => response.json())
-								.then(result2 => list2.push(result2.result.properties))
-								.catch(error => console.log("error", error));
-						});
-
-						setStore({ planets: list2 });
-					})
+					.then(result => setStore({ planets: result }))
 					.catch(error => console.log("error", error));
 			},
 			favFunction: name => {
-				const store = getStore();
-				const validate = store.favlist.includes(name);
-				if (validate === false) {
-					const favlist = [...store.favlist, name];
-					setStore({ favlist: favlist });
-				}
+				let token = sessionStorage.getItem("my_token");
+
+				fetch("https://3000-purple-bird-85pge3g8.ws-us03.gitpod.io/favorites", {
+					method: "POST",
+					headers: { Authorization: "Bearer " + token, "Content-Type": "application/json" },
+					body: JSON.stringify({ name: name })
+				})
+					.then(res => res.json())
+					.then(data => {
+						console.log(data);
+						setStore({ favlist: data });
+					})
+					.catch(err => console.log("error", err));
 			},
-			favFunctionDelete: index => {
-				const store = getStore();
-				let newlist = [];
-				store.favlist.map(function(item, index2) {
-					if (index != index2) {
-						newlist.push(item);
-					}
-				});
-				setStore({ favlist: newlist });
+			favFunctionDelete: id => {
+				let token = sessionStorage.getItem("my_token");
+
+				fetch("https://3000-purple-bird-85pge3g8.ws-us03.gitpod.io/favorites", {
+					method: "DELETE",
+					headers: { Authorization: "Bearer " + token, "Content-Type": "application/json" },
+					body: JSON.stringify({ id: id })
+				})
+					.then(res => res.json())
+					.then(data => {
+						console.log(data);
+						setStore({ favlist: data });
+					})
+					.catch(err => console.log("error", err));
+			},
+			setFavList: listFav => {
+				setStore({ favlist: listFav });
 			}
 		}
 	};

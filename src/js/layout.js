@@ -6,6 +6,8 @@ import { Home } from "./views/home";
 import { Characters } from "./views/characters.js";
 import { Planet } from "./views/planet.js";
 import { Navbar } from "./component/navbar.js";
+import { Login } from "./views/login.js";
+import { Register } from "./views/register.js";
 
 import injectContext from "./store/appContext";
 
@@ -21,7 +23,7 @@ const Layout = () => {
 				<ScrollToTop>
 					<Navbar />
 					<Switch>
-						<Route exact path="/">
+						<Route exact path="/home">
 							<Home />
 						</Route>
 						<Route exact path="/characters/:charactersid">
@@ -29,6 +31,12 @@ const Layout = () => {
 						</Route>
 						<Route exact path="/planet/:planetid">
 							<Planet />
+						</Route>
+						<Route exact path="/">
+							<Login />
+						</Route>
+						<Route exact path="/register">
+							<Register />
 						</Route>
 					</Switch>
 				</ScrollToTop>
